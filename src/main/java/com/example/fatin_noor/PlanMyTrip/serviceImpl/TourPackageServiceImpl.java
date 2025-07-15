@@ -8,8 +8,6 @@ import com.example.fatin_noor.PlanMyTrip.repository.TourPackageInfoRepository;
 import com.example.fatin_noor.PlanMyTrip.repository.TourPackagesRepository;
 import com.example.fatin_noor.PlanMyTrip.service.TourPackageService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -181,6 +179,36 @@ public class TourPackageServiceImpl implements TourPackageService {
 
        TourPackageInfo save =  tourPackageInfoRepository.save(tourPackageInfo);
         return tourPackageMapper.toDto(save);
+    }
+
+    public String deleteTourPackage(Long id) {
+
+       TourPackages tourPackages =  tourPackagesRepository.findById(id)
+               .orElseThrow(
+                       () -> new IllegalArgumentException("Tour Package Not Found"));
+
+       String tourPackageName  = tourPackages.getTourPackageName();
+
+       tourPackagesRepository.delete(tourPackages);
+
+        return tourPackageName + " Has Been Deleted";
+    }
+
+    public List<RegisterTourPackageDTO> searchTourPackage(String tourPackageName) {
+//        List<TourPackages> entities = tourPackagesRepository.findByName(tourPackageName);
+//        return entities.stream()
+//                .map(tourPackageMapper::toDto) // or toTourPackageDto if you prefer
+//                .collect(Collectors.toList());
+
+        List<TourPackages> tourPackages = tourPackagesRepository.findByName(tourPackageName);
+        return tourPackages
+                .stream()
+                .map(
+                        info ->
+                        {
+                            return tourPackageMapper.toDto(info);
+                        }
+                ).collect(Collectors.toList());
     }
 
 

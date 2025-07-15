@@ -23,7 +23,7 @@ public interface TourPackageMapper {
 
     TourPackageInfoDTO toDto(TourPackageInfo tourPackageInfoEntity);
 
-  TourPackageUpdateDTO toUpdate (TourPackages tourPackages);
+    TourPackageUpdateDTO toUpdate (TourPackages tourPackages);
 
 
 }

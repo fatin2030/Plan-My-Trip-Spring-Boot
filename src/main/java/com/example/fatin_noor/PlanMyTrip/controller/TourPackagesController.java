@@ -8,11 +8,7 @@ import com.example.fatin_noor.PlanMyTrip.dto.TourPackageUpdateDTO;
 import com.example.fatin_noor.PlanMyTrip.serviceImpl.TourPackageServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -44,5 +40,17 @@ public class TourPackagesController {
         return  this.tourPackagesService.updateTourPackageInfo(id,tourPackageInfoDTO);
     }
 
+    @DeleteMapping("/api/delete-tour-package/{id}")
+
+    public String deleteTourPackage(@PathVariable Long id){
+        return this.tourPackagesService.deleteTourPackage(id);
+
+    }
+
+
+    @GetMapping("/api/get-tour-packages/{name}")
+    public List<RegisterTourPackageDTO> searchTourPackages(@PathVariable String name){
+        return this.tourPackagesService.searchTourPackage(name);
+    }
 
 }

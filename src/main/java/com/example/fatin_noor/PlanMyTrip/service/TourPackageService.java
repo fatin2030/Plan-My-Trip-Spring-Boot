@@ -1,9 +1,6 @@
 package com.example.fatin_noor.PlanMyTrip.service;
 
-import com.example.fatin_noor.PlanMyTrip.dto.AddTourPackageInfoDTO;
-import com.example.fatin_noor.PlanMyTrip.dto.RegisterTourPackageDTO;
-import com.example.fatin_noor.PlanMyTrip.dto.TourPackageInfoDTO;
-import com.example.fatin_noor.PlanMyTrip.dto.TourPackageUpdateDTO;
+import com.example.fatin_noor.PlanMyTrip.dto.*;
 
 import java.util.List;
 
@@ -15,4 +12,8 @@ public interface TourPackageService {
     TourPackageUpdateDTO updateTourPackage(Long tourPackageId, TourPackageUpdateDTO tourPackageUpdateDTO);
 
     TourPackageInfoDTO updateTourPackageInfo(Long id , TourPackageInfoDTO tourPackageInfoDTO);
+
+    String deleteTourPackage(Long id );
+
+    List<RegisterTourPackageDTO> searchTourPackage(String tourPackageName);
 }
