@@ -10,6 +10,7 @@ import com.example.fatin_noor.PlanMyTrip.service.TourPackageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -201,14 +202,21 @@ public class TourPackageServiceImpl implements TourPackageService {
 //                .collect(Collectors.toList());
 
         List<TourPackages> tourPackages = tourPackagesRepository.findByName(tourPackageName);
-        return tourPackages
-                .stream()
-                .map(
-                        info ->
-                        {
-                            return tourPackageMapper.toDto(info);
-                        }
-                ).collect(Collectors.toList());
+        List<RegisterTourPackageDTO> dtoList = new ArrayList<>();
+
+        for(TourPackages tourPackage: tourPackages){
+            dtoList.add(tourPackageMapper.toDto(tourPackage));
+        }
+//        return tourPackages
+//                .stream()
+//                .map(
+//                        info ->
+//                        {
+//                            return tourPackageMapper.toDto(info);
+//                        }
+//                ).toList();
+        return dtoList;
+
     }
 
 
