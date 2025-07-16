@@ -1,16 +1,17 @@
 package com.example.fatin_noor.PlanMyTrip.controller;
 
 
-import com.example.fatin_noor.PlanMyTrip.dto.RegistrationDTO;
+import com.example.fatin_noor.PlanMyTrip.dto.UpdateUserDTO;
+import com.example.fatin_noor.PlanMyTrip.dto.UserRegistrationDTO;
 import com.example.fatin_noor.PlanMyTrip.dto.ResponseDTO;
 import com.example.fatin_noor.PlanMyTrip.serviceImpl.UserServiceImpl;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/api/user/")
 
 public class UserController {
 
@@ -21,10 +22,15 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("api/create")
+    @PostMapping("/create")
 
-    public ResponseDTO registerUser(@RequestBody RegistrationDTO user){
+    public ResponseDTO registerUser(@Valid @RequestBody UserRegistrationDTO user){
         return userService.registerUser(user);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseDTO updateUser(@Valid @PathVariable Long id, @RequestBody UpdateUserDTO updateUserDTO){
+        return this.userService.updateUser(id,updateUserDTO);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.fatin_noor.PlanMyTrip.entity;
 
+import com.example.fatin_noor.PlanMyTrip.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,7 +19,8 @@ public class Booking {
     @Column(name="booking_date")
     private LocalDate bookingDate;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

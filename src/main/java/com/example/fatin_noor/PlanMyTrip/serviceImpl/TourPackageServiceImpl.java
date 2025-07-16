@@ -200,13 +200,6 @@ public class TourPackageServiceImpl implements TourPackageService {
 //        return entities.stream()
 //                .map(tourPackageMapper::toDto) // or toTourPackageDto if you prefer
 //                .collect(Collectors.toList());
-
-        List<TourPackages> tourPackages = tourPackagesRepository.findByName(tourPackageName);
-        List<RegisterTourPackageDTO> dtoList = new ArrayList<>();
-
-        for(TourPackages tourPackage: tourPackages){
-            dtoList.add(tourPackageMapper.toDto(tourPackage));
-        }
 //        return tourPackages
 //                .stream()
 //                .map(
@@ -215,6 +208,13 @@ public class TourPackageServiceImpl implements TourPackageService {
 //                            return tourPackageMapper.toDto(info);
 //                        }
 //                ).toList();
+        List<TourPackages> tourPackages = tourPackagesRepository.findByName(tourPackageName);
+        List<RegisterTourPackageDTO> dtoList = new ArrayList<>();
+
+        for(TourPackages tourPackage: tourPackages){
+            dtoList.add(tourPackageMapper.toDto(tourPackage));
+        }
+
         return dtoList;
 
     }
