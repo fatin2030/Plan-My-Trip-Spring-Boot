@@ -11,4 +11,6 @@ public interface BookingSummaryProjection {
     Integer getAllowedPerson();
     String getDescription();
     LocalDate getStartDate();
+    Integer getCount();
 }
+

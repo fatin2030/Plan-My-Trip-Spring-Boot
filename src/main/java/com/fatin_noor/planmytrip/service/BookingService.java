@@ -8,4 +8,6 @@ public interface BookingService{
     BookingResponseDTO tourPackageBooking(Long tourPackageId, Long userID, BookingDTO bookingDTO);
 
     BookingSummaryProjection bookingInfo(Long id);
+
+    BookingSummaryProjection getBookingStat();
 }

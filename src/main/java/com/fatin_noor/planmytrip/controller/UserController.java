@@ -4,7 +4,7 @@ package com.fatin_noor.planmytrip.controller;
 import com.fatin_noor.planmytrip.dto.UpdateUserDTO;
 import com.fatin_noor.planmytrip.dto.UserRegistrationDTO;
 import com.fatin_noor.planmytrip.dto.ResponseDTO;
-import com.fatin_noor.planmytrip.serviceImpl.UserServiceImpl;
+import com.fatin_noor.planmytrip.service.impl.UserServiceImpl;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

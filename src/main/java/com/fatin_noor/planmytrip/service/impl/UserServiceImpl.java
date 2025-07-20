@@ -1,4 +1,4 @@
-package com.fatin_noor.planmytrip.serviceImpl;
+package com.fatin_noor.planmytrip.service.impl;
 
 
 

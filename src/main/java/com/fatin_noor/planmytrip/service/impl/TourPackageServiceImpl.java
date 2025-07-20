@@ -1,6 +1,5 @@
-package com.fatin_noor.planmytrip.serviceImpl;
+package com.fatin_noor.planmytrip.service.impl;
 
-import com.fatin_noor.planmytrip.dto.*;
 import com.fatin_noor.planmytrip.dto.AddTourPackageInfoDTO;
 import com.fatin_noor.planmytrip.dto.RegisterTourPackageDTO;
 import com.fatin_noor.planmytrip.dto.TourPackageInfoDTO;

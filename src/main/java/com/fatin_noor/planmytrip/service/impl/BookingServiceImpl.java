@@ -1,4 +1,4 @@
-package com.fatin_noor.planmytrip.serviceImpl;
+package com.fatin_noor.planmytrip.service.impl;
 
 import com.fatin_noor.planmytrip.dto.BookingDTO;
 import com.fatin_noor.planmytrip.dto.BookingResponseDTO;
@@ -15,8 +15,11 @@ import com.fatin_noor.planmytrip.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.util.List;
+
+import static com.fatin_noor.planmytrip.enums.Status.ACTIVE;
 
 @Service
 @RequiredArgsConstructor
@@ -27,7 +30,14 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
 
+    @Transactional
     public BookingResponseDTO tourPackageBooking(Long tourPackageID, Long userID, BookingDTO bookingDTO) {
+
+        // Validate inputs\\
+        int value = bookingRepository.countBookingByUserAndTourCategory(userID,tourPackageID);
+        if(value > 0 && bookingDTO.getStatus().name().equals(ACTIVE.name())) {
+            throw new ApiException("You have already booked this tour package", HttpStatus.BAD_REQUEST);
+        }
 
         TourPackageInfo tourInfo = tourPackageInfoRepository.findById(tourPackageID).orElseThrow(
                 () -> new ApiException("Tour Package Not Found", HttpStatus.NOT_FOUND)
@@ -44,12 +54,19 @@ public class BookingServiceImpl implements BookingService {
         booking.setBookingDate(LocalDate.now());
         booking.setTourPackageInfo(tourInfo);
 
-        bookingRepository.save(booking);
-        return  bookingMapper.toDto(booking);
+
+
+        Booking savedBooking = bookingRepository.save(booking);
+        return  bookingMapper.toDto(savedBooking);
     }
 
     public BookingSummaryProjection bookingInfo(Long id) {
+
        return bookingRepository.bookingInfo(id);
+    }
+
+    public List<BookingSummaryProjection> getBookingStat() {
+        return this.bookingRepository.getBookingSummary();
     }
 
 

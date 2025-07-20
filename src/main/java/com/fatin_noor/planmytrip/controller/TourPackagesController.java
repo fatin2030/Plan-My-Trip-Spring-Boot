@@ -5,7 +5,7 @@ import com.fatin_noor.planmytrip.dto.AddTourPackageInfoDTO;
 import com.fatin_noor.planmytrip.dto.RegisterTourPackageDTO;
 import com.fatin_noor.planmytrip.dto.TourPackageInfoDTO;
 import com.fatin_noor.planmytrip.dto.TourPackageUpdateDTO;
-import com.fatin_noor.planmytrip.serviceImpl.TourPackageServiceImpl;
+import com.fatin_noor.planmytrip.service.impl.TourPackageServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
