@@ -7,7 +7,6 @@ import com.fatin_noor.planmytrip.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.entity.User;
 import com.fatin_noor.planmytrip.exception.ApiException;
 import com.fatin_noor.planmytrip.mapper.BookingMapper;
-import com.fatin_noor.planmytrip.mapper.TourPackageMapper;
 import com.fatin_noor.planmytrip.repository.BookingRepository;
 import com.fatin_noor.planmytrip.repository.TourPackageInfoRepository;
 import com.fatin_noor.planmytrip.repository.UserRepository;
@@ -27,7 +26,6 @@ public class BookingServiceImpl implements BookingService {
     private final UserRepository userRepository;
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
-    private final TourPackageMapper tourPackageMapper;
 
     public BookingResponseDTO tourPackageBooking(Long tourPackageID, Long userID, BookingDTO bookingDTO) {
 
