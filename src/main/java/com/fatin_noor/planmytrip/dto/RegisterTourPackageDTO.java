@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 public class RegisterTourPackageDTO {
 
+    private Long id;
     @NotBlank(message = "Tour package name is required")
     private String tourPackageName;
     @NotBlank(message = "Description is required")

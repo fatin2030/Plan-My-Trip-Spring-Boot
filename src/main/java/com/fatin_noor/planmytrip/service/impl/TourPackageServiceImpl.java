@@ -24,69 +24,15 @@ public class TourPackageServiceImpl implements TourPackageService {
     private final TourPackageInfoRepository tourPackageInfoRepository;
     private final TourPackageMapper tourPackageMapper;
 
-//    @Autowired
-//    public TourPackageServiceImpl(TourPackagesRepository tourPackagesRepository, TourPackageMapper tourPackageMapper, TourPackageInfoRepository tourPackageInfoRepository){
-//        this.tourPackagesRepository = tourPackagesRepository;
-//        this.tourPackageMapper =  tourPackageMapper;
-//        this.tourPackageInfoRepository = tourPackageInfoRepository;
-//    }
 
-//    public RegisterTourPackageDTO registerTourPackage(RegisterTourPackageDTO addTourPackageDto) {
-//
-//        // Create TourPackages entity
-//        TourPackages tourPackages = new TourPackages();
-//        tourPackages.setTourPackageName(addTourPackageDto.getTourPackageName());
-//        tourPackages.setDescription(addTourPackageDto.getDescription());
-//        tourPackages.setStartDate(addTourPackageDto.getStartDate());
-//        tourPackages.setEndDate(addTourPackageDto.getEndDate());
-//
-//        // Map DTOs to TourPackageInfo entities
-//        List<TourPackageInfo> infoList = addTourPackageDto.getTourPackageInfoList().stream().map(infoDto -> {
-//            TourPackageInfo tourPackageInfo = new TourPackageInfo();
-//            tourPackageInfo.setCategory(infoDto.getCategory());
-//            tourPackageInfo.setPrice(infoDto.getPrice());
-//            tourPackageInfo.setAvailableSeats(infoDto.getAvailableSeats());
-//            tourPackageInfo.setAllowedPerson(infoDto.getAllowedPerson()); // if field exists
-//            tourPackageInfo.setTourPackages(tourPackages); // Set the owning side
-//            return tourPackageInfo;
-//        }).toList();
-//
-//        tourPackages.setTourPackageType(infoList);
-//
-//        // Save parent and cascade children
-//        TourPackages tourPackage = tourPackagesRepository.save(tourPackages);
-//
-//        // Map back to DTO if needed
-//        RegisterTourPackageDTO responseDTO = new RegisterTourPackageDTO();
-//        BeanUtils.copyProperties(tourPackage,responseDTO);
-//        /*responseDTO.setTourPackageName(saved.getTourPackageName());
-//        responseDTO.setDescription(saved.getDescription());
-//        responseDTO.setStartDate(saved.getStartDate());
-//        responseDTO.setEndDate(saved.getEndDate());*/
-//
-//        List<TourPackageInfoDTO> responseInfos = tourPackage.getTourPackageType().stream().map(info -> {
-//            TourPackageInfoDTO dto = new TourPackageInfoDTO();
-//            BeanUtils.copyProperties(info,dto);
-//            /*dto.setCategory(info.getCategory());
-//            dto.setPrice(info.getPrice());
-//            dto.setAvailableSeats(info.getAvailableSeats());
-//            dto.setAllowedPerson(info.getAllowedPerson());*/
-//            return dto;
-//        }).toList();
-//
-//        responseDTO.setTourPackageInfoList(responseInfos);
-//
-//        return responseDTO;
-//    }
-
-    public RegisterTourPackageDTO registerTourPackage(RegisterTourPackageDTO registerTourPackageDTO){
+    public void registerTourPackage(RegisterTourPackageDTO registerTourPackageDTO){
 
         TourPackages tourPackages = tourPackageMapper.toEntity(registerTourPackageDTO);
 
         tourPackages.getTourPackageType().forEach(info -> info.setTourPackages(tourPackages));
 
-        TourPackages saved = tourPackagesRepository.save(tourPackages);
-        return tourPackageMapper.toDto(saved);
+        tourPackagesRepository.save(tourPackages);
+
     }
 
 //    public AddTourPackageInfoDTO addTourPackageInfo(Long packageId, AddTourPackageInfoDTO addTourPackageInfoDTO){
@@ -103,7 +49,7 @@ public class TourPackageServiceImpl implements TourPackageService {
 
 
 
-    public List<TourPackageInfoDTO> addTourPackageInfo(Long id, AddTourPackageInfoDTO addTourPackageInfoDTO) {
+    public void addTourPackageInfo(Long id, AddTourPackageInfoDTO addTourPackageInfoDTO) {
         TourPackages tourPackage = tourPackagesRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
 
@@ -112,15 +58,12 @@ public class TourPackageServiceImpl implements TourPackageService {
             tourInfo.setTourPackages(tourPackage);
             return tourInfo;
         }).toList();
-       return tourPackageInfoRepository.saveAll(tourPackageInfos)
-               .stream()
-               .map(info->tourPackageMapper.toDto(info))
-               .toList();
+        tourPackageInfoRepository.saveAll(tourPackageInfos);
 
     }
 
 
-    public TourPackageUpdateDTO updateTourPackage(Long tourPackageId, TourPackageUpdateDTO tourPackageUpdateDTO) {
+    public void updateTourPackage(Long tourPackageId, TourPackageUpdateDTO tourPackageUpdateDTO) {
 
         TourPackages tourPackages = tourPackagesRepository.findById(tourPackageId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
@@ -156,13 +99,12 @@ public class TourPackageServiceImpl implements TourPackageService {
             tourPackages.setTourPackageType(tourInfo);
         }
 
-        TourPackages saved = tourPackagesRepository.save(tourPackages);
+        tourPackagesRepository.save(tourPackages);
 
-        return tourPackageMapper.toUpdate(saved);
     }
 
 
-    public TourPackageInfoDTO updateTourPackageInfo(Long id, TourPackageInfoDTO tourPackageInfoDTO) {
+    public void updateTourPackageInfo(Long id, TourPackageInfoDTO tourPackageInfoDTO) {
 
         TourPackageInfo tourPackageInfo = tourPackageInfoRepository.findById(id)
                 .orElseThrow(()
@@ -181,21 +123,18 @@ public class TourPackageServiceImpl implements TourPackageService {
             tourPackageInfo.setAllowedPerson(tourPackageInfoDTO.getAllowedPerson());
         }
 
-       TourPackageInfo save =  tourPackageInfoRepository.save(tourPackageInfo);
-        return tourPackageMapper.toDto(save);
+        tourPackageInfoRepository.save(tourPackageInfo);
+
     }
 
-    public String deleteTourPackage(Long id) {
+    public void deleteTourPackage(Long id) {
 
        TourPackages tourPackages =  tourPackagesRepository.findById(id)
                .orElseThrow(
                        () -> new IllegalArgumentException("Tour Package Not Found"));
 
-       String tourPackageName  = tourPackages.getTourPackageName();
-
        tourPackagesRepository.delete(tourPackages);
 
-        return tourPackageName + " Has Been Deleted";
     }
 
     public List<RegisterTourPackageDTO> searchTourPackage(String tourPackageName) {
@@ -220,6 +159,21 @@ public class TourPackageServiceImpl implements TourPackageService {
 
         return dtoList;
 
+
+
+    }
+
+    public List<RegisterTourPackageDTO> getAllTourPackages() {
+        List<TourPackages> tourPackages = tourPackagesRepository.findAll();
+        List<RegisterTourPackageDTO> dtoList = new ArrayList<>();
+
+        if(tourPackages.isEmpty()) {
+            throw new IllegalArgumentException("No Tour Packages Found");
+        }
+        for(TourPackages tourPackage : tourPackages){
+            dtoList.add(tourPackageMapper.toDto(tourPackage));
+        }
+        return dtoList;
     }
 
 

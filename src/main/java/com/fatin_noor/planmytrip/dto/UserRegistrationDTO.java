@@ -9,6 +9,7 @@ import lombok.*;
 @Data
 public class UserRegistrationDTO {
 
+    private Long id;
     @NotBlank(message = "Name is required")
     private String name;
 

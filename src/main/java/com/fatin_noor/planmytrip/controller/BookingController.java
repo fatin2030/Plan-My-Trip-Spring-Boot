@@ -3,6 +3,7 @@ package com.fatin_noor.planmytrip.controller;
 import com.fatin_noor.planmytrip.dto.BookingDTO;
 import com.fatin_noor.planmytrip.dto.BookingResponseDTO;
 import com.fatin_noor.planmytrip.repository.projection.BookingSummaryProjection;
+import com.fatin_noor.planmytrip.service.BookingService;
 import com.fatin_noor.planmytrip.service.impl.BookingServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,17 +18,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingController {
 
-    private final BookingServiceImpl bookingService;
+    private final BookingService bookingService;
 
     @PostMapping("/book/{packageId}/user/{userId}")
-    public ResponseEntity<BookingResponseDTO> createBooking(
+    public ResponseEntity<Void> createBooking(
             @PathVariable Long packageId,
             @PathVariable Long userId,
             @Valid @RequestBody BookingDTO request
     ) {
-        BookingResponseDTO response = bookingService.tourPackageBooking(packageId, userId, request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        bookingService.tourPackageBooking(packageId, userId, request);
+        return ResponseEntity.status(201).build();
     }
+
 
     @GetMapping("/get-info/{id}")
 
@@ -35,9 +37,15 @@ public class BookingController {
          return ResponseEntity.status(HttpStatus.FOUND).body(bookingService.bookingInfo(id));
     }
 
-    @GetMapping("/summary")
-    public List<BookingSummaryProjection> getBookingSummary() {
-        return bookingService.getBookingStat();
+//    @GetMapping("/summary")
+//    public List<BookingSummaryProjection> getBookingSummary() {
+//        return bookingService.getBookingStat();
+//    }
+
+    @GetMapping("/all-bookings")
+    public ResponseEntity<List<BookingSummaryProjection>> getAllBookingInfo() {
+        List<BookingSummaryProjection> bookingList = bookingService.getALlBookingInfo();
+        return ResponseEntity.ok(bookingList);
     }
 
 

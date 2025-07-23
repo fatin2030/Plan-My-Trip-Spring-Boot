@@ -5,9 +5,11 @@ import com.fatin_noor.planmytrip.dto.AddTourPackageInfoDTO;
 import com.fatin_noor.planmytrip.dto.RegisterTourPackageDTO;
 import com.fatin_noor.planmytrip.dto.TourPackageInfoDTO;
 import com.fatin_noor.planmytrip.dto.TourPackageUpdateDTO;
+import com.fatin_noor.planmytrip.service.TourPackageService;
 import com.fatin_noor.planmytrip.service.impl.TourPackageServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -15,35 +17,41 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TourPackagesController {
 
-    private final TourPackageServiceImpl tourPackagesService;
+    private final TourPackageService tourPackagesService;
 
     @PostMapping("api/addPackages")
-    public RegisterTourPackageDTO registerTourPackage(@Valid @RequestBody RegisterTourPackageDTO registerTourPackageDTO){
-        return this.tourPackagesService.registerTourPackage(registerTourPackageDTO);
+    public ResponseEntity<Void> registerTourPackage(@Valid @RequestBody RegisterTourPackageDTO registerTourPackageDTO){
+        tourPackagesService.registerTourPackage(registerTourPackageDTO);
+        return ResponseEntity.status(201).build();
     }
 
     @PostMapping("api/add-package-info/{id}/add-info")
 
-    public List<TourPackageInfoDTO> addTourPackageInfo(@PathVariable Long id, @RequestBody AddTourPackageInfoDTO tourPackageInfoDTO){
-        return this.tourPackagesService.addTourPackageInfo(id,tourPackageInfoDTO);
+    public ResponseEntity<Void> addTourPackageInfo(@PathVariable Long id, @RequestBody AddTourPackageInfoDTO tourPackageInfoDTO){
+        tourPackagesService.addTourPackageInfo(id,tourPackageInfoDTO);
+        return ResponseEntity.status(201).build();
     }
 
     @PatchMapping("/api/tour-packages/{id}")
-    public TourPackageUpdateDTO updateTourPackage(
+    public ResponseEntity<Void> updateTourPackage(
             @PathVariable Long id,
             @RequestBody TourPackageUpdateDTO dto) {
-        return this.tourPackagesService.updateTourPackage(id, dto);
+        tourPackagesService.updateTourPackage(id, dto);
+        return ResponseEntity.status(204).build();
+
     }
 
     @PutMapping ("/api/tour-package-info/{id}")
-    public TourPackageInfoDTO updateTourPackageInfo(@PathVariable Long id ,@Valid @RequestBody TourPackageInfoDTO tourPackageInfoDTO){
-        return  this.tourPackagesService.updateTourPackageInfo(id,tourPackageInfoDTO);
+    public ResponseEntity<Void> updateTourPackageInfo(@PathVariable Long id ,@Valid @RequestBody TourPackageInfoDTO tourPackageInfoDTO){
+      tourPackagesService.updateTourPackageInfo(id,tourPackageInfoDTO);
+      return ResponseEntity.status(204).build();
     }
 
     @DeleteMapping("/api/delete-tour-package/{id}")
 
-    public String deleteTourPackage(@PathVariable Long id){
-        return this.tourPackagesService.deleteTourPackage(id);
+    public ResponseEntity<Void> deleteTourPackage(@PathVariable Long id){
+        tourPackagesService.deleteTourPackage(id);
+        return ResponseEntity.status(204).build();
 
     }
 
@@ -51,6 +59,11 @@ public class TourPackagesController {
     @GetMapping("/api/get-tour-packages/{name}")
     public List<RegisterTourPackageDTO> searchTourPackages(@PathVariable String name){
         return this.tourPackagesService.searchTourPackage(name);
+    }
+
+    @GetMapping("/api/get-all-tour-packages")
+    public List<RegisterTourPackageDTO> getAllTourPackages() {
+        return this.tourPackagesService.getAllTourPackages();
     }
 
 }

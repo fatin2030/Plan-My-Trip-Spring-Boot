@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 @Data
 public class TourPackageDto {
+    private Long id;
     private String tourPackageName;
     private String description;
     private LocalDate startDate;

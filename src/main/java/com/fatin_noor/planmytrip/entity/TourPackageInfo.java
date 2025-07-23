@@ -30,7 +30,6 @@ public class TourPackageInfo {
     private TourPackages tourPackages;
 
     @OneToMany (mappedBy = "tourPackageInfo", cascade = CascadeType.ALL)
-
     private List<Booking> bookingList;
 
 }

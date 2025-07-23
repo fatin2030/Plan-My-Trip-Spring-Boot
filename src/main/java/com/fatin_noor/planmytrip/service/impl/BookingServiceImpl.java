@@ -31,7 +31,7 @@ public class BookingServiceImpl implements BookingService {
     private final BookingMapper bookingMapper;
 
     @Transactional
-    public BookingResponseDTO tourPackageBooking(Long tourPackageID, Long userID, BookingDTO bookingDTO) {
+    public void tourPackageBooking(Long tourPackageID, Long userID, BookingDTO bookingDTO) {
 
         // Validate inputs\\
         int value = bookingRepository.countBookingByUserAndTourCategory(userID,tourPackageID);
@@ -55,19 +55,23 @@ public class BookingServiceImpl implements BookingService {
         booking.setTourPackageInfo(tourInfo);
 
 
+      bookingRepository.save(booking);
 
-        Booking savedBooking = bookingRepository.save(booking);
-        return  bookingMapper.toDto(savedBooking);
     }
 
     public BookingSummaryProjection bookingInfo(Long id) {
 
+        if (!bookingRepository.existsById(id)) {
+            throw new ApiException("Booking Not Found", HttpStatus.NOT_FOUND);
+        }
+
+        // Fetch booking information
+
        return bookingRepository.bookingInfo(id);
     }
 
-    public List<BookingSummaryProjection> getBookingStat() {
-        return this.bookingRepository.getBookingSummary();
+    public List<BookingSummaryProjection> getALlBookingInfo() {
+        return bookingRepository.allBookingInfo();
     }
-
 
 }

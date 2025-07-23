@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import lombok.Data;
 @Data
 
-@JsonIgnoreProperties(ignoreUnknown = false)
 
 public class UpdateUserDTO {
 
