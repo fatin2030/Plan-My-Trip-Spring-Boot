@@ -1,9 +1,9 @@
 package com.fatin_noor.planmytrip.mapper;
 
-import com.fatin_noor.planmytrip.dto.*;
-import com.fatin_noor.planmytrip.dto.ResponseDTO;
-import com.fatin_noor.planmytrip.dto.UpdateUserDTO;
-import com.fatin_noor.planmytrip.entity.User;
+import com.fatin_noor.planmytrip.user.dto.*;
+import com.fatin_noor.planmytrip.user.dto.ResponseDTO;
+import com.fatin_noor.planmytrip.user.dto.UpdateUserDTO;
+import com.fatin_noor.planmytrip.user.entity.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

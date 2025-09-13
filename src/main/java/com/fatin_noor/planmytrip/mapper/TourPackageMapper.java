@@ -1,11 +1,11 @@
 package com.fatin_noor.planmytrip.mapper;
 
 
-import com.fatin_noor.planmytrip.dto.RegisterTourPackageDTO;
-import com.fatin_noor.planmytrip.dto.TourPackageInfoDTO;
-import com.fatin_noor.planmytrip.dto.TourPackageUpdateDTO;
-import com.fatin_noor.planmytrip.entity.TourPackageInfo;
-import com.fatin_noor.planmytrip.entity.TourPackages;
+import com.fatin_noor.planmytrip.tourpackege.dto.RegisterTourPackageDTO;
+import com.fatin_noor.planmytrip.tourpackege.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tourpackege.dto.TourPackageUpdateDTO;
+import com.fatin_noor.planmytrip.tourpackege.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tourpackege.entity.TourPackages;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
