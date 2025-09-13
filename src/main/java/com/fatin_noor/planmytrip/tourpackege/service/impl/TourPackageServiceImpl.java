@@ -35,17 +35,6 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     }
 
-//    public AddTourPackageInfoDTO addTourPackageInfo(Long packageId, AddTourPackageInfoDTO addTourPackageInfoDTO){
-//
-//        TourPackages tourPackage = tourPackagesRepository.findById(packageId).orElseThrow(() -> new IllegalArgumentException("Tour Package Not FOund"));
-//        TourPackageInfo t1 = tourPackageMapper.toEntity(addTourPackageInfoDTO);
-//        tourPackage.getTourPackageType().forEach(info -> info.setTourPackages(tourPackage));
-//
-//        TourPackageInfo saved = tourPackageInfoRepository.save(t1);
-//
-//        return  tourPackageMapper.toDto(saved);
-//
-//    }
 
 
 
@@ -138,18 +127,6 @@ public class TourPackageServiceImpl implements TourPackageService {
     }
 
     public List<RegisterTourPackageDTO> searchTourPackage(String tourPackageName) {
-//        List<TourPackages> entities = tourPackagesRepository.findByName(tourPackageName);
-//        return entities.stream()
-//                .map(tourPackageMapper::toDto) // or toTourPackageDto if you prefer
-//                .collect(Collectors.toList());
-//        return tourPackages
-//                .stream()
-//                .map(
-//                        info ->
-//                        {
-//                            return tourPackageMapper.toDto(info);
-//                        }
-//                ).toList();
         List<TourPackages> tourPackages = tourPackagesRepository.findByName(tourPackageName);
         List<RegisterTourPackageDTO> dtoList = new ArrayList<>();
 
