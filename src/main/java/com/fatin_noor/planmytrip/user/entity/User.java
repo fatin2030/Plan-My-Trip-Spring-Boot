@@ -3,17 +3,17 @@ package com.fatin_noor.planmytrip.user.entity;
 
 import com.fatin_noor.planmytrip.booking.entity.Booking;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class User {
 
     @Id
@@ -24,6 +24,7 @@ public class User {
     private String name;
     @Column(name="email",nullable = false,unique = true)
     private String email;
+    private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="address_id",referencedColumnName = "address_id")
@@ -37,6 +38,5 @@ public class User {
     @OneToMany (mappedBy = "user",cascade = CascadeType.ALL)
 
     private List<Booking> bookingList;
-
 
 }
