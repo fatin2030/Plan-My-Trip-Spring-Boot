@@ -5,6 +5,7 @@ import com.fatin_noor.planmytrip.booking.entity.Booking;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -26,12 +27,18 @@ public class User {
     private String email;
     private String password;
 
+    private String phone;
+    private String profileImageUrl;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="address_id",referencedColumnName = "address_id")
     private Address address;
 
+    private LocalDate createdAt;
+    private LocalDate updatedAt;
+
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="role_id",referencedColumnName = "role_id")
+    @JoinColumn(name="role_id",nullable = false)
     private Role role;
 
 

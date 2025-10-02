@@ -1,5 +1,6 @@
 package com.fatin_noor.planmytrip.auth.service.impl;
 
+import com.fatin_noor.planmytrip.attachment.AttachmentService;
 import com.fatin_noor.planmytrip.auth.dto.SignupRequest;
 import com.fatin_noor.planmytrip.auth.dto.LoginRequest;
 import com.fatin_noor.planmytrip.auth.dto.LoginResponse;
@@ -10,6 +11,7 @@ import com.fatin_noor.planmytrip.auth.repository.RefreshTokenRepository;
 import com.fatin_noor.planmytrip.auth.service.AuthService;
 import com.fatin_noor.planmytrip.auth.util.JwtUtil;
 import com.fatin_noor.planmytrip.auth.util.TokenHashUtil;
+import com.fatin_noor.planmytrip.user.entity.Address;
 import com.fatin_noor.planmytrip.user.entity.Role;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.user.repository.RoleRepository;
@@ -19,7 +21,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Map;
 
 @Service
@@ -30,25 +34,46 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
     private final RoleRepository roleRepository;
+    private final AttachmentService attachmentService;
 
     @Override
     @Transactional
     public void registerUser(SignupRequest req) {
+
         if (userRepository.existsByEmail(req.email())) {
             throw new ApiException("Email already in use", 400);
         }
 
-        Role userRole = roleRepository.findByRoleName("USER")
+        Role userRole = roleRepository.findByRoleName(req.role())
                 .orElseGet(() -> {
                     Role newRole = Role.builder().roleName("USER").build();
                     return roleRepository.save(newRole);
                 });
+
+        Address address = new Address();
+        address.setCountry(req.country());
+        address.setCity(req.city());
+        address.setStreet(req.street());
+
+
+        String profileImageUrl = null;
+        if (req.profileImageUrl() != null) {
+            try {
+                profileImageUrl = attachmentService.uploadFile(req.profileImageUrl());
+            } catch (IOException e) {
+                throw new ApiException("Failed to upload profile image", 500);
+            }
+        }
 
         User user = User.builder()
                 .email(req.email())
                 .password(passwordEncoder.encode(req.password()))
                 .name(req.name())
                 .role(userRole)
+                .profileImageUrl(profileImageUrl)
+                .phone(req.phone())
+                .createdAt(LocalDate.now())
+                .address(address)
                 .build();
 
         userRepository.save(user);
@@ -79,7 +104,14 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         refreshTokenRepository.save(rt);
 
-        return new LoginResponse(accessToken, refreshToken, "Bearer", jwtUtil.getAccessTokenValiditySeconds());
+        return new LoginResponse(
+                accessToken,
+                refreshToken,
+                "Bearer",
+                user.getRole().getRoleName(),
+                jwtUtil.getAccessTokenValiditySeconds()
+
+        );
     }
 
     @Override
@@ -119,7 +151,12 @@ public class AuthServiceImpl implements AuthService {
                 .build();
         refreshTokenRepository.save(newStored);
 
-        return new LoginResponse(newAccess, newRefresh, "Bearer", jwtUtil.getAccessTokenValiditySeconds());
+        return new LoginResponse(
+                newAccess,
+                newRefresh,
+                "Bearer",
+                user.getRole().getRoleName(),
+                jwtUtil.getAccessTokenValiditySeconds());
     }
 
     @Override
