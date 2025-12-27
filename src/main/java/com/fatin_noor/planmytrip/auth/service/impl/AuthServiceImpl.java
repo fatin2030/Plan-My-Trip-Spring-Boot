@@ -17,6 +17,7 @@ import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.user.repository.RoleRepository;
 import com.fatin_noor.planmytrip.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -168,5 +169,29 @@ public class AuthServiceImpl implements AuthService {
                     rt.setRevoked(true);
                     refreshTokenRepository.save(rt);
                 });
+    }
+
+    public User getCurrentUser() {
+
+        org.springframework.security.core.Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+
+        if (auth == null || !auth.isAuthenticated()
+                || auth instanceof org.springframework.security.authentication.AnonymousAuthenticationToken) {
+            throw new ApiException("Unauthorized", 401);
+        }
+
+        String email;
+        Object principal = auth.getPrincipal();
+        if (principal instanceof org.springframework.security.core.userdetails.UserDetails) {
+            email = ((org.springframework.security.core.userdetails.UserDetails) principal).getUsername();
+        } else if (principal instanceof String) {
+            email = (String) principal;
+        } else {
+            throw new ApiException("Unable to extract authenticated username", 401);
+        }
+
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException("User not found", 404));
     }
 }

@@ -1,17 +1,21 @@
 package com.fatin_noor.planmytrip.tourpackege.service.impl;
 
-import com.fatin_noor.planmytrip.tourpackege.dto.AddTourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tourPackageInfo.dto.AddTourPackageInfoDTO;
 import com.fatin_noor.planmytrip.tourpackege.dto.RegisterTourPackageDTO;
-import com.fatin_noor.planmytrip.tourpackege.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
 import com.fatin_noor.planmytrip.tourpackege.dto.TourPackageUpdateDTO;
-import com.fatin_noor.planmytrip.tourpackege.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tourPackageInfo.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.tourpackege.entity.TourPackages;
 import com.fatin_noor.planmytrip.mapper.TourPackageMapper;
-import com.fatin_noor.planmytrip.tourpackege.repository.TourPackageInfoRepository;
-import com.fatin_noor.planmytrip.tourpackege.repository.TourPackagesRepository;
+import com.fatin_noor.planmytrip.tourPackageInfo.repository.TourPackageInfoRepository;
+import com.fatin_noor.planmytrip.tourpackege.repository.TourPackageRepository;
 import com.fatin_noor.planmytrip.tourpackege.service.TourPackageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,58 +24,25 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class TourPackageServiceImpl implements TourPackageService {
-    private final TourPackagesRepository tourPackagesRepository;
+    private final TourPackageRepository tourPackagesRepository;
     private final TourPackageInfoRepository tourPackageInfoRepository;
     private final TourPackageMapper tourPackageMapper;
 
 
     public void registerTourPackage(RegisterTourPackageDTO registerTourPackageDTO){
 
-        TourPackages tourPackages = tourPackageMapper.toEntity(registerTourPackageDTO);
-
-        tourPackages.getTourPackageType().forEach(info -> info.setTourPackages(tourPackages));
-
-        tourPackagesRepository.save(tourPackages);
+        tourPackagesRepository.save(tourPackageMapper.toEntity(registerTourPackageDTO));
 
     }
 
 
-
-
-    public void addTourPackageInfo(Long id, AddTourPackageInfoDTO addTourPackageInfoDTO) {
-        TourPackages tourPackage = tourPackagesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
-
-        List<TourPackageInfo> tourPackageInfos = addTourPackageInfoDTO.getTourPackageInfoList().stream().map(infoDto -> {
-            TourPackageInfo tourInfo = tourPackageMapper.toEntity(infoDto);
-            tourInfo.setTourPackages(tourPackage);
-            return tourInfo;
-        }).toList();
-        tourPackageInfoRepository.saveAll(tourPackageInfos);
-
-    }
-
-
+    @Override
     public void updateTourPackage(Long tourPackageId, TourPackageUpdateDTO tourPackageUpdateDTO) {
 
         TourPackages tourPackages = tourPackagesRepository.findById(tourPackageId)
                 .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
+        BeanUtils.copyProperties(tourPackageUpdateDTO, tourPackages);
 
-        if (tourPackageUpdateDTO.getTourPackageName() != null && !tourPackageUpdateDTO.getTourPackageName().isEmpty()) {
-            tourPackages.setTourPackageName(tourPackageUpdateDTO.getTourPackageName());
-        }
-
-        if (tourPackageUpdateDTO.getDescription() != null && !tourPackageUpdateDTO.getDescription().isEmpty()) {
-            tourPackages.setDescription(tourPackageUpdateDTO.getDescription());
-        }
-
-        if (tourPackageUpdateDTO.getStartDate() != null) {
-            tourPackages.setStartDate(tourPackageUpdateDTO.getStartDate());
-        }
-
-        if (tourPackageUpdateDTO.getEndDate() != null) {
-            tourPackages.setEndDate(tourPackageUpdateDTO.getEndDate());
-        }
         if(tourPackageUpdateDTO.getTourPackageInfoList() != null && !tourPackageUpdateDTO.getTourPackageInfoList().isEmpty()) {
             List<TourPackageInfo> tourInfo = tourPackageUpdateDTO
                     .getTourPackageInfoList()
@@ -116,14 +87,15 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     }
 
+    @Override
+    @Transactional
     public void deleteTourPackage(Long id) {
 
        TourPackages tourPackages =  tourPackagesRepository.findById(id)
                .orElseThrow(
                        () -> new IllegalArgumentException("Tour Package Not Found"));
 
-       tourPackagesRepository.delete(tourPackages);
-
+       tourPackages.setDeleted(true);
     }
 
     public List<RegisterTourPackageDTO> searchTourPackage(String tourPackageName) {
@@ -135,8 +107,6 @@ public class TourPackageServiceImpl implements TourPackageService {
         }
 
         return dtoList;
-
-
 
     }
 
@@ -151,6 +121,17 @@ public class TourPackageServiceImpl implements TourPackageService {
             dtoList.add(tourPackageMapper.toDto(tourPackage));
         }
         return dtoList;
+    }
+
+    @Override
+    public TourPackageRepository.TourPackageProjection getTourPackageById(Long id) {
+        return tourPackagesRepository.getTourPackageById(id);
+    }
+
+    @Override
+    public Page<TourPackageRepository.TourPackageProjection> getPaginatedTourPackages(int page, int size) {
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+        return tourPackagesRepository.findPaginatedTourPackages(pageable);
     }
 
 

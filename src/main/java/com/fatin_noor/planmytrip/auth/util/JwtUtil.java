@@ -17,7 +17,7 @@ public class JwtUtil {
     @Value("${JWT_SECRET}")
     private String SECRET_KEY;
 
-    @Value("${ACCESS_TOKEN_VALIDITY:900000}") // default 15 min in ms
+    @Value("${ACCESS_TOKEN_VALIDITY:900000}00") // default 15 min in ms
     private long accessTokenValidityMillis;
 
     private static final long REFRESH_TOKEN_VALIDITY_MILLIS = 1000 * 60 * 60 * 24 * 7; // 7 days

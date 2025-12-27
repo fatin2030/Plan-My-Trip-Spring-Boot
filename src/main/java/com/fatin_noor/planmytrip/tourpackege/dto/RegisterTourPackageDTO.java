@@ -1,7 +1,7 @@
 package com.fatin_noor.planmytrip.tourpackege.dto;
 
+import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -11,7 +11,6 @@ import java.util.List;
 @Data
 public class RegisterTourPackageDTO {
 
-    private Long id;
     @NotBlank(message = "Tour package name is required")
     private String tourPackageName;
     @NotBlank(message = "Description is required")
@@ -22,6 +21,7 @@ public class RegisterTourPackageDTO {
     private LocalDate endDate;
 
 
-    @NotEmpty(message = "At least one tour package info is required")
+   // @NotEmpty(message = "At least one tour package info is required")
     private List<TourPackageInfoDTO> tourPackageInfoList;
+
 }
