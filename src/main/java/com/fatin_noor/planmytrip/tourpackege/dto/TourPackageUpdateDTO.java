@@ -1,6 +1,7 @@
 package com.fatin_noor.planmytrip.tourpackege.dto;
 
 
+import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
 import lombok.Data;
 
 import java.time.LocalDate;
