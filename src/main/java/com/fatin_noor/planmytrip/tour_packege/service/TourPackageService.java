@@ -1,9 +1,7 @@
-package com.fatin_noor.planmytrip.tourpackege.service;
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.AddTourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourpackege.dto.RegisterTourPackageDTO;
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourpackege.dto.TourPackageUpdateDTO;
-import com.fatin_noor.planmytrip.tourpackege.repository.TourPackageRepository;
+package com.fatin_noor.planmytrip.tour_packege.service;
+import com.fatin_noor.planmytrip.tour_packege.dto.RegisterTourPackageDTO;
+import com.fatin_noor.planmytrip.tour_packege.dto.TourPackageUpdateDTO;
+import com.fatin_noor.planmytrip.tour_packege.repository.TourPackageRepository;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

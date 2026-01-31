@@ -12,6 +12,7 @@ import com.fatin_noor.planmytrip.mapper.UserMapper;
 import com.fatin_noor.planmytrip.user.repository.RoleRepository;
 import com.fatin_noor.planmytrip.user.repository.UserRepository;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,49 +22,11 @@ import java.util.List;
 
 
 @Service
-
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final UserMapper userMapper;
-
-
-    @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-        this.userMapper = userMapper;
-    }
-
-
-    public void registerUser(UserRegistrationDTO userRegistrationDTO){
-        if(userRepository.existsByEmail(userRegistrationDTO.getEmail())){
-            throw new ApiException("Email already exists", HttpStatus.CONFLICT);
-        }
-
-
-        Role role = roleRepository.findByRoleName(userRegistrationDTO.getRoleName())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid role"));
-
-        Address address = new Address();
-        address.setCountry(userRegistrationDTO.getCountry());
-        address.setCity(userRegistrationDTO.getCity());
-        address.setStreet(userRegistrationDTO.getStreet());
-
-        User user = new User();
-
-        user.setRole(role);
-        user.setName(userRegistrationDTO.getName());
-        user.setEmail(userRegistrationDTO.getEmail());
-        user.setAddress(address);
-            // userName, email
-//        User responseUser =
-        userRepository.save(user);
-//
-//        return  userMapper.toUserResponseDTO(responseUser);
-    }
-
 
     public void updateUser(Long id, UpdateUserDTO updateUserDTO) {
 

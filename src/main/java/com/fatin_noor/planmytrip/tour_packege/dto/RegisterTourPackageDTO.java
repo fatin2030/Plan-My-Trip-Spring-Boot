@@ -1,6 +1,6 @@
-package com.fatin_noor.planmytrip.tourpackege.dto;
+package com.fatin_noor.planmytrip.tour_packege.dto;
 
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

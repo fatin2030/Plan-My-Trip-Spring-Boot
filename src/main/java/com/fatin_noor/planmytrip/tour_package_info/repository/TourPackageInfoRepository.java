@@ -1,7 +1,7 @@
-package com.fatin_noor.planmytrip.tourPackageInfo.repository;
+package com.fatin_noor.planmytrip.tour_package_info.repository;
 
 
-import com.fatin_noor.planmytrip.tourPackageInfo.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

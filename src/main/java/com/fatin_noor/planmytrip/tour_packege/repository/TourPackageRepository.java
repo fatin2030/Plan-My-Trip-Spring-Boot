@@ -1,7 +1,6 @@
-package com.fatin_noor.planmytrip.tourpackege.repository;
+package com.fatin_noor.planmytrip.tour_packege.repository;
 
-import com.fatin_noor.planmytrip.tourpackege.dto.RegisterTourPackageDTO;
-import com.fatin_noor.planmytrip.tourpackege.entity.TourPackages;
+import com.fatin_noor.planmytrip.tour_packege.entity.TourPackages;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -45,16 +45,8 @@ public class AuthServiceImpl implements AuthService {
             throw new ApiException("Email already in use", 400);
         }
 
-        Role userRole = roleRepository.findByRoleName(req.role())
-                .orElseGet(() -> {
-                    Role newRole = Role.builder().roleName("USER").build();
-                    return roleRepository.save(newRole);
-                });
-
-        Address address = new Address();
-        address.setCountry(req.country());
-        address.setCity(req.city());
-        address.setStreet(req.street());
+        Role userRole = roleRepository.findById(req.roleId()).orElseThrow(()
+                -> new ApiException("Role not found", 404));
 
 
         String profileImageUrl = null;
@@ -74,7 +66,6 @@ public class AuthServiceImpl implements AuthService {
                 .profileImageUrl(profileImageUrl)
                 .phone(req.phone())
                 .createdAt(LocalDate.now())
-                .address(address)
                 .build();
 
         userRepository.save(user);

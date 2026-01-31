@@ -14,7 +14,6 @@ public class Address {
 
     @Id
     @GeneratedValue
-    @Column(name="address_id")
     private Long id;
 
     @Column(name ="country" , nullable = false)

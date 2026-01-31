@@ -2,13 +2,11 @@ package com.fatin_noor.planmytrip.user.controller;
 
 
 import com.fatin_noor.planmytrip.user.dto.UpdateUserDTO;
-import com.fatin_noor.planmytrip.user.dto.UserRegistrationDTO;
 import com.fatin_noor.planmytrip.user.dto.UsersDTO;
 import com.fatin_noor.planmytrip.user.service.UserService;
-import com.fatin_noor.planmytrip.user.service.impl.UserServiceImpl;
 
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,22 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user/")
-
+@AllArgsConstructor
 public class UserController {
 
     private final UserService userService;
-
-    @Autowired
-    public UserController(UserServiceImpl userService) {
-        this.userService = userService;
-    }
-
-    @PostMapping("/create")
-
-    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserRegistrationDTO user){
-        userService.registerUser(user);
-        return ResponseEntity.status(201).build();
-    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Void> updateUser(@Valid @PathVariable Long id, @RequestBody UpdateUserDTO updateUserDTO){

@@ -1,6 +1,6 @@
 package com.fatin_noor.planmytrip.booking.entity;
 
-import com.fatin_noor.planmytrip.tourPackageInfo.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.enums.Status;
 import jakarta.persistence.*;
@@ -15,8 +15,7 @@ public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "booking_id")
-    private Long bookingId;
+    private Long id;
 
     @Column(name="booking_date")
     private LocalDate bookingDate;

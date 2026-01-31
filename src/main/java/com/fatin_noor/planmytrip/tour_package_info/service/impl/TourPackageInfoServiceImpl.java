@@ -1,13 +1,13 @@
-package com.fatin_noor.planmytrip.tourPackageInfo.service.impl;
+package com.fatin_noor.planmytrip.tour_package_info.service.impl;
 
 import com.fatin_noor.planmytrip.mapper.TourPackageMapper;
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.AddTourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourPackageInfo.entity.TourPackageInfo;
-import com.fatin_noor.planmytrip.tourPackageInfo.repository.TourPackageInfoRepository;
-import com.fatin_noor.planmytrip.tourPackageInfo.service.TourPackageInfoService;
-import com.fatin_noor.planmytrip.tourpackege.entity.TourPackages;
-import com.fatin_noor.planmytrip.tourpackege.repository.TourPackageRepository;
+import com.fatin_noor.planmytrip.tour_package_info.dto.AddTourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_info.repository.TourPackageInfoRepository;
+import com.fatin_noor.planmytrip.tour_package_info.service.TourPackageInfoService;
+import com.fatin_noor.planmytrip.tour_packege.entity.TourPackages;
+import com.fatin_noor.planmytrip.tour_packege.repository.TourPackageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

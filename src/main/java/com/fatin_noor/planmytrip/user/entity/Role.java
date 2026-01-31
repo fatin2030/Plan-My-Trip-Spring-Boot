@@ -16,11 +16,10 @@ import java.util.List;
 public class Role {
 
     @Id
-    @Column(name="role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="role_name")
+    @Column(name="role_name", nullable = false, unique = true)
     private String roleName;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")

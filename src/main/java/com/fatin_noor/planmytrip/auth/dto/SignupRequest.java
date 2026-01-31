@@ -1,8 +1,8 @@
 package com.fatin_noor.planmytrip.auth.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,9 +17,9 @@ public record SignupRequest(
 //             message = "Password must contain at least one uppercase letter, one lowercase letter, one digit, and one special character")
     String password,
 
-    @NotBlank(message = "Role is required")
+    @NotNull(message = "Role Id is required")
     //@Pattern(regexp = "^(USER|ADMIN)$", message = "Role must be either USER or ADMIN")
-    String role,
+    Long roleId,
 
     @NotBlank(message = "Name is required")
     @Size(min = 2, max = 100, message = "Name must be between 2 and 100 characters")

@@ -19,7 +19,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
     private Long id;
     @Column(name="name", nullable = false)
     private String name;
@@ -31,7 +30,7 @@ public class User {
     private String profileImageUrl;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="address_id",referencedColumnName = "address_id")
+    @JoinColumn(name="address_id",referencedColumnName = "id")
     private Address address;
 
     private LocalDate createdAt;

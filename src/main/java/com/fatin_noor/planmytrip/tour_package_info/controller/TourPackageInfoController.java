@@ -1,8 +1,8 @@
-package com.fatin_noor.planmytrip.tourPackageInfo.controller;
+package com.fatin_noor.planmytrip.tour_package_info.controller;
 
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.AddTourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourPackageInfo.dto.TourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tourPackageInfo.service.TourPackageInfoService;
+import com.fatin_noor.planmytrip.tour_package_info.dto.AddTourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_info.service.TourPackageInfoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

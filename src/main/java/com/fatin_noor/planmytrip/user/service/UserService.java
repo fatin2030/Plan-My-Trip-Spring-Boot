@@ -8,8 +8,6 @@ import java.util.List;
 
 public interface UserService {
 
-    void registerUser(UserRegistrationDTO userRegistrationDTO);
-
     void updateUser(Long id, UpdateUserDTO updateUserDTO);
 
     List<UsersDTO> getAllUsers();
