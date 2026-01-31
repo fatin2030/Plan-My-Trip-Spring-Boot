@@ -30,7 +30,19 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     public void registerTourPackage(RegisterTourPackageDTO registerTourPackageDTO){
 
-        tourPackagesRepository.save(tourPackageMapper.toEntity(registerTourPackageDTO));
+
+        TourPackages tourPackages = tourPackageMapper.toEntity(registerTourPackageDTO);
+
+        if(!registerTourPackageDTO.getTourPackageInfoId().isEmpty()){
+            List<TourPackageInfo> tourPackageInfo = tourPackageInfoRepository
+                    .findByIdIn(registerTourPackageDTO.getTourPackageInfoId());
+            if(tourPackageInfo.size() != registerTourPackageDTO.getTourPackageInfoId().size()){
+                throw new IllegalArgumentException("One or more Tour Package Info IDs are invalid");
+            }
+            tourPackages.setTourPackageType(tourPackageInfo);
+        }
+
+        tourPackagesRepository.save(tourPackages);
 
     }
 

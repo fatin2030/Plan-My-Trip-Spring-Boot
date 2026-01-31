@@ -25,15 +25,9 @@ public class TourPackageInfoServiceImpl implements TourPackageInfoService {
 
 
 
-    public void addTourPackageInfo(Long id, AddTourPackageInfoDTO addTourPackageInfoDTO) {
-        TourPackages tourPackage = tourPackagesRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
+    public void addTourPackageInfo(AddTourPackageInfoDTO addTourPackageInfoDTO) {
 
-        List<TourPackageInfo> tourPackageInfos = addTourPackageInfoDTO.getTourPackageInfoList().stream().map(infoDto -> {
-            TourPackageInfo tourInfo = tourPackageMapper.toEntity(infoDto);
-            tourInfo.setTourPackages(tourPackage);
-            return tourInfo;
-        }).toList();
+        List<TourPackageInfo> tourPackageInfos = addTourPackageInfoDTO.getTourPackageInfoList().stream().map(tourPackageMapper::toEntity).toList();
         tourPackageInfoRepository.saveAll(tourPackageInfos);
 
     }

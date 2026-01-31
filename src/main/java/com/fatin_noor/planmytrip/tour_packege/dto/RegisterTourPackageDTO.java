@@ -1,6 +1,5 @@
 package com.fatin_noor.planmytrip.tour_packege.dto;
 
-import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -22,6 +21,6 @@ public class RegisterTourPackageDTO {
 
 
    // @NotEmpty(message = "At least one tour package info is required")
-    private List<TourPackageInfoDTO> tourPackageInfoList;
 
+    private List<Long> tourPackageInfoId;
 }

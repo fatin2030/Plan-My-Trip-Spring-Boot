@@ -15,10 +15,9 @@ public class TourPackageInfoController {
 
     private final TourPackageInfoService tourPackageInfoService;
 
-    @PostMapping("/add-package-info/{id}/add-info")
-
-    public ResponseEntity<Void> addTourPackageInfo(@PathVariable Long id, @RequestBody AddTourPackageInfoDTO tourPackageInfoDTO) {
-        tourPackageInfoService.addTourPackageInfo(id, tourPackageInfoDTO);
+    @PostMapping("/create")
+    public ResponseEntity<Void> addTourPackageInfo( @RequestBody AddTourPackageInfoDTO tourPackageInfoDTO) {
+        tourPackageInfoService.addTourPackageInfo(tourPackageInfoDTO);
         return ResponseEntity.status(201).build();
     }
 
