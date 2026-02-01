@@ -27,9 +27,8 @@ public class TourPackageInfo extends Auditable {
     @Column(name="available_seats",nullable = false)
     private Integer availableSeats;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="tour_package_id")
-    private TourPackages tourPackages;
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
+    private List<TourPackages> tourPackageList;
 
     @OneToMany (mappedBy = "tourPackageInfo", cascade = CascadeType.ALL)
     private List<Booking> bookingList;

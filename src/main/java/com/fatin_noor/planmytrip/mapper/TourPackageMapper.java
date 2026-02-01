@@ -21,7 +21,6 @@ public interface TourPackageMapper {
     TourPackageInfo toEntity(TourPackageInfoDTO tourPackageInfoDTO);
 
     TourPackageInfoDTO toDto(TourPackageInfo tourPackageInfoEntity);
-    @Mapping(source = "tourPackageType", target = "tourPackageInfoList")
     TourPackageUpdateDTO toUpdate (TourPackages tourPackages);
     List<TourPackageInfoDTO> toDtoList(List<TourPackageInfo> list);
     List<TourPackageInfo> toEntityList(List<TourPackageInfoDTO> list);

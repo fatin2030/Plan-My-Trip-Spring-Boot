@@ -55,19 +55,19 @@ public class TourPackageServiceImpl implements TourPackageService {
         BeanUtils.copyProperties(tourPackageUpdateDTO, tourPackages);
 
         if(tourPackageUpdateDTO.getTourPackageInfoList() != null && !tourPackageUpdateDTO.getTourPackageInfoList().isEmpty()) {
-            List<TourPackageInfo> tourInfo = tourPackageUpdateDTO
-                    .getTourPackageInfoList()
-                    .stream()
-                    .map(
-                            info
-                                    -> {
-                                TourPackageInfo updatedInfo = tourPackageMapper.toEntity(info);
-                                updatedInfo.setTourPackages(tourPackages);
-                                return updatedInfo;
-
-                            })
-                    .collect(Collectors.toList());
-            tourPackages.setTourPackageType(tourInfo);
+//            List<TourPackageInfo> tourInfo = tourPackageUpdateDTO
+//                    .getTourPackageInfoList()
+//                    .stream()
+//                    .map(
+//                            info
+//                                    -> {
+//                                TourPackageInfo updatedInfo = tourPackageMapper.toEntity(info);
+//                                updatedInfo.setTourPackages(tourPackages);
+//                                return updatedInfo;
+//
+//                            })
+//                    .collect(Collectors.toList());
+ //           tourPackages.setTourPackageType(tourInfo);
         }
 
         tourPackagesRepository.save(tourPackages);

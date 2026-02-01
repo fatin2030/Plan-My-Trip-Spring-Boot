@@ -23,7 +23,7 @@ public class TourPackages extends Auditable{
     @Column(name="end_date",nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "tourPackages")
+    @OneToMany(cascade = CascadeType.ALL , fetch =FetchType.LAZY)
     private List<TourPackageInfo> tourPackageType;
 
 
