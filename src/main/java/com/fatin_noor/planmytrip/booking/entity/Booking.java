@@ -1,6 +1,6 @@
 package com.fatin_noor.planmytrip.booking.entity;
 
-import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.enums.Status;
 import jakarta.persistence.*;

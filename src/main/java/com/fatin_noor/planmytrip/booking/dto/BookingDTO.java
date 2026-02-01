@@ -1,7 +1,7 @@
 package com.fatin_noor.planmytrip.booking.dto;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.enums.Status;
-import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_category.dto.TourPackageInfoDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 

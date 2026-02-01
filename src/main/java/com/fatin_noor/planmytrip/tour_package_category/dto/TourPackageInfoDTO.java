@@ -1,4 +1,4 @@
-package com.fatin_noor.planmytrip.tour_package_info.dto;
+package com.fatin_noor.planmytrip.tour_package_category.dto;
 
 import lombok.Data;
 

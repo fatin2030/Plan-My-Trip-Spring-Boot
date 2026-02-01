@@ -1,4 +1,4 @@
-package com.fatin_noor.planmytrip.tour_package_info.entity;
+package com.fatin_noor.planmytrip.tour_package_category.entity;
 
 
 import com.fatin_noor.planmytrip.booking.entity.Booking;

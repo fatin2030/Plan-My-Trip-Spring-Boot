@@ -2,12 +2,12 @@ package com.fatin_noor.planmytrip.booking.service.impl;
 
 import com.fatin_noor.planmytrip.booking.dto.BookingDTO;
 import com.fatin_noor.planmytrip.booking.entity.Booking;
-import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.exception.ApiException;
 import com.fatin_noor.planmytrip.mapper.BookingMapper;
 import com.fatin_noor.planmytrip.booking.repository.BookingRepository;
-import com.fatin_noor.planmytrip.tour_package_info.repository.TourPackageInfoRepository;
+import com.fatin_noor.planmytrip.tour_package_category.repository.TourPackageInfoRepository;
 import com.fatin_noor.planmytrip.user.repository.UserRepository;
 import com.fatin_noor.planmytrip.booking.repository.projection.BookingSummaryProjection;
 import com.fatin_noor.planmytrip.booking.service.BookingService;

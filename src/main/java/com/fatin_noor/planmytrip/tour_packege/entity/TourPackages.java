@@ -1,6 +1,6 @@
 package com.fatin_noor.planmytrip.tour_packege.entity;
 import com.fatin_noor.planmytrip.common.audit.Auditable;
-import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
 import jakarta.persistence.*;
 import lombok.Data;
 

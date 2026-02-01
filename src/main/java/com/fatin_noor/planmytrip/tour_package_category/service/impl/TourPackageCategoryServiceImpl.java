@@ -1,12 +1,11 @@
-package com.fatin_noor.planmytrip.tour_package_info.service.impl;
+package com.fatin_noor.planmytrip.tour_package_category.service.impl;
 
 import com.fatin_noor.planmytrip.mapper.TourPackageMapper;
-import com.fatin_noor.planmytrip.tour_package_info.dto.AddTourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tour_package_info.dto.TourPackageInfoDTO;
-import com.fatin_noor.planmytrip.tour_package_info.entity.TourPackageInfo;
-import com.fatin_noor.planmytrip.tour_package_info.repository.TourPackageInfoRepository;
-import com.fatin_noor.planmytrip.tour_package_info.service.TourPackageInfoService;
-import com.fatin_noor.planmytrip.tour_packege.entity.TourPackages;
+import com.fatin_noor.planmytrip.tour_package_category.dto.AddTourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_category.dto.TourPackageInfoDTO;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.repository.TourPackageInfoRepository;
+import com.fatin_noor.planmytrip.tour_package_category.service.TourPackageCategoryService;
 import com.fatin_noor.planmytrip.tour_packege.repository.TourPackageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class TourPackageInfoServiceImpl implements TourPackageInfoService {
+public class TourPackageCategoryServiceImpl implements TourPackageCategoryService {
     private final TourPackageInfoRepository tourPackageInfoRepository;
     private final TourPackageRepository tourPackagesRepository;
     private final TourPackageMapper tourPackageMapper;
