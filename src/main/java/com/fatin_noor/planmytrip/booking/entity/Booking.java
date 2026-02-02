@@ -1,6 +1,6 @@
 package com.fatin_noor.planmytrip.booking.entity;
 
-import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageCategory;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.enums.Status;
 import jakarta.persistence.*;
@@ -30,7 +30,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "tour_info_id")
-    private TourPackageInfo tourPackageInfo;
+    private TourPackageCategory tourPackageCategory;
 
 
 

@@ -2,7 +2,7 @@ package com.fatin_noor.planmytrip.booking.service.impl;
 
 import com.fatin_noor.planmytrip.booking.dto.BookingDTO;
 import com.fatin_noor.planmytrip.booking.entity.Booking;
-import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageCategory;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.exception.ApiException;
 import com.fatin_noor.planmytrip.mapper.BookingMapper;
@@ -39,7 +39,7 @@ public class BookingServiceImpl implements BookingService {
             throw new ApiException("You have already booked this tour package", HttpStatus.BAD_REQUEST);
         }
 
-        TourPackageInfo tourInfo = tourPackageInfoRepository.findById(tourPackageID).orElseThrow(
+        TourPackageCategory tourInfo = tourPackageInfoRepository.findById(tourPackageID).orElseThrow(
                 () -> new ApiException("Tour Package Not Found", HttpStatus.NOT_FOUND)
         );
 
@@ -52,7 +52,7 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(userInfo);
         booking.setStatus(bookingDTO.getStatus());
         booking.setBookingDate(LocalDate.now());
-        booking.setTourPackageInfo(tourInfo);
+        booking.setTourPackageCategory(tourInfo);
 
 
       bookingRepository.save(booking);

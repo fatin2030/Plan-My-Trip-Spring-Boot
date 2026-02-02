@@ -16,7 +16,7 @@ import java.util.Optional;
 @Repository
 public interface TourPackageRepository extends JpaRepository<TourPackages, Long> {
 
-    @Query("SELECT DISTINCT t FROM TourPackages t LEFT JOIN FETCH t.tourPackageType t2 WHERE t.tourPackageName LIKE %:name%")
+    @Query("SELECT DISTINCT t FROM TourPackages t WHERE t.tourPackageName LIKE %:name%")
     List<TourPackages> findByName(@Param("name") String name);
 
     Optional<TourPackages> findById(Long id);

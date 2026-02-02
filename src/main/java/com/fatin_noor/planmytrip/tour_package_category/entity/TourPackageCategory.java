@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table
-public class TourPackageInfo extends Auditable {
+public class TourPackageCategory extends Auditable {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -27,10 +27,10 @@ public class TourPackageInfo extends Auditable {
     @Column(name="available_seats",nullable = false)
     private Integer availableSeats;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.LAZY)
-    private List<TourPackages> tourPackageList;
+    @ManyToMany(mappedBy = "tourPackageCategories")
+    private List<TourPackages> tourPackagesList;
 
-    @OneToMany (mappedBy = "tourPackageInfo", cascade = CascadeType.ALL)
+    @OneToMany (mappedBy = "tourPackageCategory", cascade = CascadeType.ALL)
     private List<Booking> bookingList;
 
 }

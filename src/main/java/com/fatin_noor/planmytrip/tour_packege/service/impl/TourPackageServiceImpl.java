@@ -1,9 +1,9 @@
 package com.fatin_noor.planmytrip.tour_packege.service.impl;
 
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageCategory;
 import com.fatin_noor.planmytrip.tour_packege.dto.RegisterTourPackageDTO;
 import com.fatin_noor.planmytrip.tour_package_category.dto.TourPackageInfoDTO;
 import com.fatin_noor.planmytrip.tour_packege.dto.TourPackageUpdateDTO;
-import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
 import com.fatin_noor.planmytrip.tour_packege.entity.TourPackages;
 import com.fatin_noor.planmytrip.mapper.TourPackageMapper;
 import com.fatin_noor.planmytrip.tour_package_category.repository.TourPackageInfoRepository;
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,12 +33,12 @@ public class TourPackageServiceImpl implements TourPackageService {
         TourPackages tourPackages = tourPackageMapper.toEntity(registerTourPackageDTO);
 
         if(!registerTourPackageDTO.getTourPackageInfoId().isEmpty()){
-            List<TourPackageInfo> tourPackageInfo = tourPackageInfoRepository
+            List<TourPackageCategory> tourPackageCategory = tourPackageInfoRepository
                     .findByIdIn(registerTourPackageDTO.getTourPackageInfoId());
-            if(tourPackageInfo.size() != registerTourPackageDTO.getTourPackageInfoId().size()){
+            if(tourPackageCategory.size() != registerTourPackageDTO.getTourPackageInfoId().size()){
                 throw new IllegalArgumentException("One or more Tour Package Info IDs are invalid");
             }
-            tourPackages.setTourPackageType(tourPackageInfo);
+            tourPackages.setTourPackageCategories(tourPackageCategory);
         }
 
         tourPackagesRepository.save(tourPackages);
@@ -77,24 +76,24 @@ public class TourPackageServiceImpl implements TourPackageService {
 
     public void updateTourPackageInfo(Long id, TourPackageInfoDTO tourPackageInfoDTO) {
 
-        TourPackageInfo tourPackageInfo = tourPackageInfoRepository.findById(id)
+        TourPackageCategory tourPackageCategory = tourPackageInfoRepository.findById(id)
                 .orElseThrow(()
                                 -> new IllegalArgumentException(" Tour Package Not Found"));
 
         if(tourPackageInfoDTO.getAvailableSeats() >0 )  {
-            tourPackageInfo.setAvailableSeats(tourPackageInfoDTO.getAvailableSeats());
+            tourPackageCategory.setAvailableSeats(tourPackageInfoDTO.getAvailableSeats());
         }
         if (tourPackageInfoDTO.getCategory() !=null){
-            tourPackageInfo.setCategory(tourPackageInfoDTO.getCategory());
+            tourPackageCategory.setCategory(tourPackageInfoDTO.getCategory());
         }
         if(tourPackageInfoDTO.getPrice()>0){
-            tourPackageInfo.setPrice(tourPackageInfoDTO.getPrice());
+            tourPackageCategory.setPrice(tourPackageInfoDTO.getPrice());
         }
         if(tourPackageInfoDTO.getAllowedPerson() >0){
-            tourPackageInfo.setAllowedPerson(tourPackageInfoDTO.getAllowedPerson());
+            tourPackageCategory.setAllowedPerson(tourPackageInfoDTO.getAllowedPerson());
         }
 
-        tourPackageInfoRepository.save(tourPackageInfo);
+        tourPackageInfoRepository.save(tourPackageCategory);
 
     }
 

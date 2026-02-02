@@ -1,6 +1,6 @@
 package com.fatin_noor.planmytrip.tour_packege.entity;
 import com.fatin_noor.planmytrip.common.audit.Auditable;
-import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageInfo;
+import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageCategory;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,9 +23,13 @@ public class TourPackages extends Auditable{
     @Column(name="end_date",nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(cascade = CascadeType.ALL , fetch =FetchType.LAZY)
-    private List<TourPackageInfo> tourPackageType;
-
+    @ManyToMany
+    @JoinTable(
+            name = "tour_package_tour_category",
+            joinColumns = @JoinColumn(name = "tour_package_id"),
+            inverseJoinColumns = @JoinColumn(name = "tour_category_id")
+    )
+    private List<TourPackageCategory> tourPackageCategories;
 
 
 }
