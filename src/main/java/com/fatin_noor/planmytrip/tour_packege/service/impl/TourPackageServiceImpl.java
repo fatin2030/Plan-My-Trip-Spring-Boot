@@ -38,7 +38,6 @@ public class TourPackageServiceImpl implements TourPackageService {
             if(tourPackageCategory.size() != registerTourPackageDTO.getTourPackageInfoId().size()){
                 throw new IllegalArgumentException("One or more Tour Package Info IDs are invalid");
             }
-            tourPackages.setTourPackageCategories(tourPackageCategory);
         }
 
         tourPackagesRepository.save(tourPackages);
@@ -53,21 +52,14 @@ public class TourPackageServiceImpl implements TourPackageService {
                 .orElseThrow(() -> new IllegalArgumentException("Tour Package Not Found"));
         BeanUtils.copyProperties(tourPackageUpdateDTO, tourPackages);
 
-        if(tourPackageUpdateDTO.getTourPackageInfoList() != null && !tourPackageUpdateDTO.getTourPackageInfoList().isEmpty()) {
-//            List<TourPackageInfo> tourInfo = tourPackageUpdateDTO
-//                    .getTourPackageInfoList()
-//                    .stream()
-//                    .map(
-//                            info
-//                                    -> {
-//                                TourPackageInfo updatedInfo = tourPackageMapper.toEntity(info);
-//                                updatedInfo.setTourPackages(tourPackages);
-//                                return updatedInfo;
-//
-//                            })
-//                    .collect(Collectors.toList());
- //           tourPackages.setTourPackageType(tourInfo);
+        if(!tourPackageUpdateDTO.getTourPackageInfoId().isEmpty()){
+            List<TourPackageCategory> tourPackageCategories = tourPackageInfoRepository
+                    .findByIdIn(tourPackageUpdateDTO.getTourPackageInfoId());
+            if(tourPackageCategories.size() != tourPackageUpdateDTO.getTourPackageInfoId().size()){
+                throw new IllegalArgumentException("One or more Tour Package Info IDs are invalid");
+            }
         }
+
 
         tourPackagesRepository.save(tourPackages);
 
@@ -80,18 +72,6 @@ public class TourPackageServiceImpl implements TourPackageService {
                 .orElseThrow(()
                                 -> new IllegalArgumentException(" Tour Package Not Found"));
 
-        if(tourPackageInfoDTO.getAvailableSeats() >0 )  {
-            tourPackageCategory.setAvailableSeats(tourPackageInfoDTO.getAvailableSeats());
-        }
-        if (tourPackageInfoDTO.getCategory() !=null){
-            tourPackageCategory.setCategory(tourPackageInfoDTO.getCategory());
-        }
-        if(tourPackageInfoDTO.getPrice()>0){
-            tourPackageCategory.setPrice(tourPackageInfoDTO.getPrice());
-        }
-        if(tourPackageInfoDTO.getAllowedPerson() >0){
-            tourPackageCategory.setAllowedPerson(tourPackageInfoDTO.getAllowedPerson());
-        }
 
         tourPackageInfoRepository.save(tourPackageCategory);
 

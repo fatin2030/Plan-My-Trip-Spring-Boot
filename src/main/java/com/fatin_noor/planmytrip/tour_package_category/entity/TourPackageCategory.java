@@ -20,17 +20,5 @@ public class TourPackageCategory extends Auditable {
 
     @Column(name = "tour_category",nullable = false)
     private String category;
-    @Column(name="allowed_person",nullable = false)
-    private Integer allowedPerson;
-    @Column(name="package_price",nullable = false)
-    private float price;
-    @Column(name="available_seats",nullable = false)
-    private Integer availableSeats;
-
-    @ManyToMany(mappedBy = "tourPackageCategories")
-    private List<TourPackages> tourPackagesList;
-
-    @OneToMany (mappedBy = "tourPackageCategory", cascade = CascadeType.ALL)
-    private List<Booking> bookingList;
 
 }

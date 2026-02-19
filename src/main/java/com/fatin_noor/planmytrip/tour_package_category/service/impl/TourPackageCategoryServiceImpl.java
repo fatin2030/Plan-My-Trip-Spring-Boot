@@ -38,19 +38,6 @@ public class TourPackageCategoryServiceImpl implements TourPackageCategoryServic
                 .orElseThrow(()
                         -> new IllegalArgumentException(" Tour Package Not Found"));
 
-        if (tourPackageInfoDTO.getAvailableSeats() > 0) {
-            tourPackageCategory.setAvailableSeats(tourPackageInfoDTO.getAvailableSeats());
-        }
-        if (tourPackageInfoDTO.getCategory() != null) {
-            tourPackageCategory.setCategory(tourPackageInfoDTO.getCategory());
-        }
-        if (tourPackageInfoDTO.getPrice() > 0) {
-            tourPackageCategory.setPrice(tourPackageInfoDTO.getPrice());
-        }
-        if (tourPackageInfoDTO.getAllowedPerson() > 0) {
-            tourPackageCategory.setAllowedPerson(tourPackageInfoDTO.getAllowedPerson());
-        }
-
         tourPackageInfoRepository.save(tourPackageCategory);
 
     }

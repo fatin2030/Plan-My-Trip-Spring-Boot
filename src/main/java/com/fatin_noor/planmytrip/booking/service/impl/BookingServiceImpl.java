@@ -52,7 +52,6 @@ public class BookingServiceImpl implements BookingService {
         booking.setUser(userInfo);
         booking.setStatus(bookingDTO.getStatus());
         booking.setBookingDate(LocalDate.now());
-        booking.setTourPackageCategory(tourInfo);
 
 
       bookingRepository.save(booking);

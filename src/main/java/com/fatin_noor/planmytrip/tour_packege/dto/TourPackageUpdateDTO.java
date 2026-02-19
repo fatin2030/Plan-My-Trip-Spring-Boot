@@ -1,7 +1,6 @@
 package com.fatin_noor.planmytrip.tour_packege.dto;
 
 
-import com.fatin_noor.planmytrip.tour_package_category.dto.TourPackageInfoDTO;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -15,5 +14,6 @@ public class TourPackageUpdateDTO {
     private LocalDate startDate;
     private LocalDate endDate;
 
-    private List<TourPackageInfoDTO> tourPackageInfoList;
+    private List<Long> tourPackageInfoId;
+
 }

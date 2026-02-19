@@ -1,11 +1,12 @@
 package com.fatin_noor.planmytrip.booking.entity;
 
-import com.fatin_noor.planmytrip.tour_package_category.entity.TourPackageCategory;
+import com.fatin_noor.planmytrip.package_price.entity.PackageCategoryOffering;
 import com.fatin_noor.planmytrip.user.entity.User;
 import com.fatin_noor.planmytrip.enums.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Table
@@ -23,14 +24,14 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    private BigDecimal totalPrice;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
 
-    @ManyToOne
-    @JoinColumn(name = "tour_info_id")
-    private TourPackageCategory tourPackageCategory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private PackageCategoryOffering packageCategoryOffering;
 
 
 
