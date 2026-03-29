@@ -29,20 +29,22 @@ public class User {
     private String phone;
     private String profileImageUrl;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="address_id",referencedColumnName = "id")
     private Address address;
 
     private LocalDate createdAt;
     private LocalDate updatedAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="role_id",nullable = false)
     private Role role;
 
 
-    @OneToMany (mappedBy = "user",cascade = CascadeType.ALL)
-
+    @OneToMany (mappedBy = "user")
     private List<Booking> bookingList;
+
+    @OneToMany (mappedBy = "user")
+    private List<UserCompanyRole> companyUsers;
 
 }
