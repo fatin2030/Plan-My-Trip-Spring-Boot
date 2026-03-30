@@ -3,6 +3,7 @@ package com.fatin_noor.planmytrip.company.entity;
 import com.fatin_noor.planmytrip.common.audit.Auditable;
 import com.fatin_noor.planmytrip.enums.Status;
 import com.fatin_noor.planmytrip.tour_packege.entity.TourPackages;
+import com.fatin_noor.planmytrip.user.entity.Address;
 import com.fatin_noor.planmytrip.user.entity.UserCompanyRole;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-public class Company extends Auditable {
+public class Company  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +24,13 @@ public class Company extends Auditable {
     private String companyName;
 
     private String tradeLicenseNo;
+
+    private String email;
+
+    private String phoneNumber;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Address address;
 
     @Enumerated(EnumType.STRING)
     private Status status;

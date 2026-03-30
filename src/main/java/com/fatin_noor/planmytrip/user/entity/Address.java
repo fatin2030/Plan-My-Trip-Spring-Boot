@@ -25,4 +25,10 @@ public class Address {
     @Column(name ="street" , nullable = false)
     private String street;
 
+    private String postalCode;
+
+    private String houseNo;
+
+    private String description;
+
 }
